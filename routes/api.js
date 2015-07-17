@@ -1,13 +1,23 @@
 var express = require('express');
+var dbBase = require('../libs/common/dbBase')
 var router = express.Router();
+
+var db = new dbBase();
 
 router.route('/common/:id')
 
 .get(function(req, res) {
-    res.json({
-        id: req.params.id,
-        message: 'The get api for common: ' + req.params.id
-    })
+  db._query('select * from "Topic";', []).then(function(result){
+    console.log(result);
+    res.json(result.rows);
+  }).catch(function(err){
+    console.log(err);
+  });
+
+  // res.json({
+  //   id: req.params.id,
+  //   message: 'The get api for common: ' + req.params.id
+  // })
 })
 
 .post(function(req, res) {
