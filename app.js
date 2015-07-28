@@ -1,3 +1,7 @@
+require('app-module-path').addPath(__dirname);
+require('app-module-path').addPath('./libs/common/');
+require('app-module-path').addPath('./models/');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,10 +10,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 
+var config = require('config');
 var index = require('./routes/index');
-var users = require('./routes/users');
 var api = require('./routes/api');
 var upload = require('./routes/upload');
+var user = require('./routes/user');
+var product = require('./routes/product');
+var topic = require('./routes/topic');
 
 var app = express();
 
@@ -27,9 +34,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({ dest: 'public/images/uploads/'}));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/api', api);
 app.use('/', upload);
+app.use('/user', user);
+app.use('/product', product);
+app.use('/topic', topic);
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+  config.urlPrefix = 'http://' + add + ':8080/';
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
