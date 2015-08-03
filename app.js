@@ -17,6 +17,7 @@ var upload = require('./routes/upload');
 var user = require('./routes/user');
 var product = require('./routes/product');
 var topic = require('./routes/topic');
+var message = require('./routes/message');
 
 var app = express();
 
@@ -39,10 +40,11 @@ app.use('/', upload);
 app.use('/user', user);
 app.use('/product', product);
 app.use('/topic', topic);
+app.use('/message', message);
 
-require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-  config.urlPrefix = 'http://' + add + ':8080/';
-})
+//require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+//  config.urlPrefix = 'http://' + add + ':8080/';
+//})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
