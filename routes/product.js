@@ -41,4 +41,20 @@ router.route('/')
   });
 })
 
+router.route('/byID')
+
+.get(function(req, res) {
+  var productModel = new ProductModel();
+  productModel.queryByID(req.query.type, req.query.id, req.query.seq, function(ret, data){
+    if(ret)
+      res.json(data);
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
+
 module.exports = router;
