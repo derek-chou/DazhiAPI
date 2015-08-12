@@ -40,7 +40,7 @@ router.route('/')
   });
 })
 
-.delete(function(req, res) {
+.put(function(req, res) {
   var from_type, from_id, to_type, to_id, msg;
   type = req.body['type']; 
   id = req.body['id']; 
