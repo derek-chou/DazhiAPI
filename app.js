@@ -19,6 +19,7 @@ var product = require('./routes/product');
 var topic = require('./routes/topic');
 var message = require('./routes/message');
 var favorite = require('./routes/favorite');
+var comment = require('./routes/comment');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/product', product);
 app.use('/topic', topic);
 app.use('/message', message);
 app.use('/favorite', favorite);
+app.use('/comment', comment);
 
 //require('dns').lookup(require('os').hostname(), function (err, add, fam) {
 //  config.urlPrefix = 'http://' + add + ':8080/';
