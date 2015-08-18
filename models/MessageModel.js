@@ -11,6 +11,15 @@ MessageModel.prototype.query = function(type, id, seq, callback) {
   });
 };
 
+MessageModel.prototype.queryByDate = function(type, id, date, callback) {
+  var db = new dbBase();
+  db._query('SELECT * from "spGetMessageByDate"($1, $2, $3);', [type, id, date]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 MessageModel.prototype.updateRead = function(type, id, seq, callback) {
   var db = new dbBase();
   db._query('SELECT "spSetMessageRead"($1, $2, $3);', [type, id, seq]).then(function(result){

@@ -67,4 +67,19 @@ router.route('/')
   });
 })
 
+router.route('/byDate')
+
+.get(function(req, res) {
+  var messageModel = new MessageModel();
+  messageModel.queryByDate(req.query.type, req.query.id, req.query.date, function(ret, data){
+    if(ret)
+      res.json(data);
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
 module.exports = router;
