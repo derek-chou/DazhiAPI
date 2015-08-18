@@ -20,6 +20,15 @@ ProductModel.prototype.queryByID = function(type, id, seq, callback) {
   });
 };
 
+ProductModel.prototype.queryByProductID = function(productID, callback) {
+  var db = new dbBase();
+  db._query('select * from "spGetProductByProductID"($1)', [productID]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 ProductModel.prototype.add = function(type, id, title, content, price, currency, callback) {
   var db = new dbBase();
   db._query('select * from "spAddProduct"($1, $2, $3, $4, $5, $6)', 
