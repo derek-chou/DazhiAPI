@@ -30,10 +30,12 @@ router.route('/')
     var result = 'fail';
     switch(data){
       case -1: 
-        desc = 'DB exception.';
+        //desc = 'DB exception.';
+        desc = '資料庫錯誤';
         break;
       case -2: 
-        desc = 'Product does not exist.'; 
+        //desc = 'Product does not exist.'; 
+        desc = '產品不存在'; 
         break;
       case 0: 
         result = 'success';
