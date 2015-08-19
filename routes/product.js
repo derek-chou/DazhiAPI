@@ -42,7 +42,6 @@ router.route('/')
 })
 
 router.route('/byID')
-
 .get(function(req, res) {
   var productModel = new ProductModel();
   productModel.queryByID(req.query.type, req.query.id, req.query.seq, function(ret, data){
@@ -57,10 +56,23 @@ router.route('/byID')
 })
 
 router.route('/byProductID')
-
 .get(function(req, res) {
   var productModel = new ProductModel();
   productModel.queryByProductID(req.query.productID, function(ret, data){
+    if(ret)
+      res.json(data);
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
+router.route('/byTopicID')
+.get(function(req, res) {
+  var productModel = new ProductModel();
+  productModel.queryByTopicID(req.query.topicID, function(ret, data){
     if(ret)
       res.json(data);
     else
