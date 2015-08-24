@@ -5,7 +5,8 @@ var router = express.Router();
 router.route('/')
 .get(function(req, res) {
   var sysParameterModel = new SysParameterModel();
-  sysParameterModel.query(function(ret, data){
+  console.log(req.query.lang);
+  sysParameterModel.query(req.query.lang, function(ret, data){
     if(ret)
       res.json(data);
     else
