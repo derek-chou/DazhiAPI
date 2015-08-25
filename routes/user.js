@@ -59,4 +59,32 @@ router.route('/')
   });
 })
 
+.put(function(req, res) {
+  var type = req.body['type'];
+  var id = req.body['id'];
+  var name = req.body['name'];
+  var gender = req.body['gender'];
+  var birthday = req.body['birthday'];
+  var city = req.body['city'];
+  var lang = req.body['lang'];
+  var job = req.body['job'];
+  var desc = req.body['desc'];
+
+  var userModel = new UserModel();
+  userModel.update(type, id, name, gender, birthday, city, lang, job, desc,
+    function(ret, data){
+    if( ret )
+      res.json({
+        result: 'success',
+        type: type,
+        id: id     
+      });
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
 module.exports = router;

@@ -22,4 +22,14 @@ UserModel.prototype.add = function(type, id, name, link, gender, email, birthday
   });
 };
 
+UserModel.prototype.update = function(type, id, name, gender, birthday, city, lang, job, desc, callback) {
+  var db = new dbBase();
+  db._query('select * from "spUptUserAndProp" ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+       [type, id, name, gender, birthday, city, lang, job, desc]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 module.exports = UserModel;
