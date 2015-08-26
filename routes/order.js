@@ -20,10 +20,13 @@ router.route('/')
 .post(function(req, res) {
   var type = req.body['type'];
   var id = req.body['id'];
-  var productID = req.body['productID']
+  var productID = req.body['productID'];
+  var travelDay = req.body['travelDay'];
+  var numberOfPeople = req.body['numberOfPeople'];
+  var memo = req.body['memo'];
 
   var orderModel = new OrderModel();
-  orderModel.add(type, id, productID, 
+  orderModel.add(type, id, productID, travelDay, numberOfPeople, memo,
     function(ret, data){
 
     var desc = '';
@@ -38,6 +41,7 @@ router.route('/')
         desc = '產品不存在'; 
         break;
       case 0: 
+      default:
         result = 'success';
         break;
     }

@@ -11,10 +11,10 @@ OrderModel.prototype.query = function(type, id, seq, callback) {
   });
 };
 
-OrderModel.prototype.add = function(type, id, productID, callback) {
+OrderModel.prototype.add = function(type, id, productID, travelDay, numberOfPeople, memo, callback) {
   var db = new dbBase();
-  db._query('select * from "spAddOrder"($1, $2, $3)', 
-       [type ,id, productID]).then(function(result){
+  db._query('select * from "spAddOrder"($1, $2, $3, $4, $5, $6)', 
+       [type ,id, productID, travelDay, numberOfPeople, memo]).then(function(result){
     var ret = result.rows[0]["spAddOrder"];
     callback( true, ret );
   }).catch(function(err){
