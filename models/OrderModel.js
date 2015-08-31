@@ -44,4 +44,15 @@ OrderModel.prototype.buyerConfirm = function(type, id, orderID, callback) {
   });
 };
 
+OrderModel.prototype.cancel = function(type, id, orderID, callback) {
+  var db = new dbBase();
+  db._query('select * from "spCancelOrder"($1, $2, $3)', 
+       [type ,id, orderID]).then(function(result){
+    var ret = result.rows[0]["spCancelOrder"];
+    callback( true, ret);
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 module.exports = OrderModel;

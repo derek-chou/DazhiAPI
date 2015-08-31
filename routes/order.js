@@ -61,7 +61,6 @@ router.route('/')
 })
 
 router.route('/sellerConfirm')
-
 .put(function(req, res) {
   var type = req.body['type'];
   var id = req.body['id'];
@@ -108,7 +107,6 @@ router.route('/sellerConfirm')
 })
 
 router.route('/buyerConfirm')
-
 .put(function(req, res) {
   var type = req.body['type'];
   var id = req.body['id'];
@@ -138,6 +136,57 @@ router.route('/buyerConfirm')
       case -5: 
         //desc = 'Seller not yet confirmed.'; 
         desc = '賣家尚未確認'; 
+        break;
+      case 0: 
+        result = 'success';
+        break;
+    }
+
+    if( ret )
+      res.json({
+        result: result,
+        return_code: data,
+        return_desc: desc
+      });
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
+router.route('/cancel')
+.put(function(req, res) {
+  var type = req.body['type'];
+  var id = req.body['id'];
+  var orderID = req.body['orderID']
+
+  var orderModel = new OrderModel();
+  orderModel.cancel(type, id, orderID, function(ret, data){
+    var desc = '';
+    var result = 'fail';
+    switch(data){
+      case -1: 
+        desc = '資料庫錯誤';
+        break;
+      case -2: 
+        desc = '訂單不存在'; 
+        break;
+      case -3: 
+        desc = '訂單不屬於此帳號'; 
+        break;
+      case -4: 
+        desc = '賣方尚未確認'; 
+        break;
+      case -5: 
+        desc = '買方尚未確認'; 
+        break;
+      case -6: 
+        desc = '訂單已過期'; 
+        break;
+      case -7: 
+        desc = '訂單已經取消過'; 
         break;
       case 0: 
         result = 'success';
