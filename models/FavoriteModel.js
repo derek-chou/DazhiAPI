@@ -27,7 +27,7 @@ FavoriteModel.prototype.add = function(type, id, favorite_type, favorite_id, cal
 FavoriteModel.prototype.delete = function(type, id, favorite_type, favorite_id, callback) {
   var db = new dbBase();
   db._query('SELECT * from "spDeleteFavorite"($1, $2, $3, $4);', [type, id, favorite_type, favorite_id]).then(function(result){
-    if(result.rows[0]["spDeleteFavorite"] !== 0)
+    if(result.rows[0]["spDeleteFavorite"] === -1)
       callback( false, result.rows[0]["spDeleteFavorite"] )
     else
       callback( true, result.rows[0]["spDeleteFavorite"] );
