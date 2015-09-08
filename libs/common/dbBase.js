@@ -1,6 +1,7 @@
 var config = require('config');
 var pg = require('pg');
 var Q = require('q');
+var DateTime = require('date-time-string');
 
 function dbBase() {}
 
@@ -33,7 +34,7 @@ dbBase.prototype._query = function (sql, params, callback) {
   }
 
   if (config.debug) {
-    console.log('[SQL:]', sql, '[:SQL]');
+    console.log(DateTime.toDateTimeString(), '[SQL:]', sql, '[:SQL]');
     console.log('[PARAMS:]', params, '[:PARAMS]');
   }
   return this._connect()
