@@ -31,9 +31,10 @@ MessageModel.prototype.updateRead = function(type, id, seq, callback) {
 
 MessageModel.prototype.add = function(from_type, from_id, to_type, to_id, msg, callback) {
   var db = new dbBase();
-  db._query('SELECT "spAddMessage"($1, $2, $3, $4, $5);', 
+  db._query('SELECT * from "spAddMessage"($1, $2, $3, $4, $5);', 
   	[from_type, from_id, to_type, to_id, msg]).then(function(result){
-    callback( true, result.rows );
+    var ret = result.rows[0]["spAddMessage"];
+    callback( true, ret );
   }).catch(function(err){
     callback( false, err );
   });

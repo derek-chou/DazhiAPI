@@ -55,9 +55,23 @@ router.route('/')
   var messageModel = new MessageModel();
   messageModel.add(from_type, from_id, to_type, to_id, msg, 
     function(ret, data){
+    var desc = '';
+    var result = 'fail';
+    switch(data){
+      case -1: 
+        desc = '資料庫錯誤';
+        break;
+      case 0: 
+      default:
+        result = 'success';
+        break;
+    }
+
     if( ret )
       res.json({
-        result: 'success'
+        result: result,
+        return_code: data,
+        return_desc: desc
       });
     else
       res.json({
