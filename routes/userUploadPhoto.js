@@ -8,7 +8,7 @@ var mkdirp = require('mkdirp')
 
 var form = "<!DOCTYPE HTML><html><body>" +
 "<form method='post' action='/userUploadPhoto' enctype='multipart/form-data'>" +
-"<select name='ImageType'>" + 
+"image type : <select name='ImageType'>" + 
 "<option value='1'>Photo</option><option value='2'>Credentials</option>" + 
 "</select></br>" +
 "type : <input type='text' name='Type'/></br>" +
@@ -40,13 +40,13 @@ router.post('/userUploadPhoto', function(req, res) {
   var folder = '', fileName = '', sqlstr = '';
   console.log('imageType : ' + imageType);
   if(imageType === '1') {
-    folder = "public/images/userPhoto/" + ID;
-    fileName = config.urlPrefix + 'userPhoto/' + ID + '_' + req.files.imageName.name;
+    folder = "public/images/userPhoto/" + id;
+    fileName = config.urlPrefix + 'userPhoto/' + id + '_' + req.files.imageName.name;
     sqlstr = 'select * from "spAddUserPhoto"($1, $2, $3, $4)';
   } else {
-    folder = "public/images/product/" + ID;
-    fileName = config.urlPrefix + 'productImage/' + ID + '_' + req.files.imageName.name;
-    sqlstr = 'insert into "ProductImage"("productID", "imageURL") values($1, $2)';
+    folder = "public/images/userCredentials/" + id;
+    fileName = config.urlPrefix + 'userCredentials/' + id + '_' + req.files.imageName.name;
+    sqlstr = 'select * from "spAddUserCredentials"($1, $2, $3, $4)';
   }
 
   console.log('folder : ' + folder);
@@ -64,7 +64,7 @@ router.post('/userUploadPhoto', function(req, res) {
   });
 
   var allPromise = Q.all([ fsSaveProductImage(req.files.imageName, folder), 
-    db._query(sqlstr, [type, ID, idx, fileName]) ])
+    db._query(sqlstr, [type, id, idx, fileName]) ])
       
   allPromise.then(function(){res.json({ 'result': 'success', 'image_url': fileName})}, 
     function(){res.json({ 'result': 'fail' })});
