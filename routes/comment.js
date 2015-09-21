@@ -31,7 +31,8 @@ router.route('/')
     function(ret, data){
     if( ret )
       res.json({
-        result: 'success'
+        result: 'success',
+        seq: data[0]["spAddComment"]
       });
     else
       res.json({
