@@ -24,9 +24,10 @@ router.route('/')
   var from_id = req.body['from_id'];
   var score = req.body['score'];
   var comment = req.body['comment'];
+  var order_id = req.body['order_id'];
 
   var commentModel = new CommentModel();
-  commentModel.add(type, id, from_type, from_id, score, comment,  
+  commentModel.add(type, id, from_type, from_id, score, comment, order_id, 
     function(ret, data){
     if( ret )
       res.json({
