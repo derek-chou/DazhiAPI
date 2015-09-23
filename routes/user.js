@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.route('/')
-
 .get(function(req, res) {
   var userModel = new UserModel();
   userModel.query(req.query.type, req.query.id, function(ret, data){
@@ -29,21 +28,30 @@ router.route('/')
   //console.log(req.body);
   //console.log(Object.keys(req.body).length);
 
-  var type, id, name, link, gender, email, birthday, locale;
+  var type, id, name, link, gender, email, birthday, locale, phone;
   if(req.body['link']) {
-    type = 'FB'; id = req.body['id']; name = req.body['name']; link = req.body['link'];
-    gender = req.body['gender']; email = req.body['email']; birthday = req.body['birthday'];
+    type = 'FB'; 
+    id = req.body['id']; 
+    link = req.body['link'];
+    email = req.body['email']; 
+    birthday = req.body['birthday'];
     locale = req.body['locale'];
   } else {
-    type = 'WB'; id = req.body['idstr']; name = req.body['name']; link = req.body['profile_url'];
-    gender = req.body['gender']; email = ''; birthday = '';
+    type = 'WB'; 
+    id = req.body['idstr']; 
+    link = req.body['profile_url'];
+    email = ''; 
+    birthday = '';
     locale = req.body['location'];
 
     gender = (gender === 'm') ? 'male' : 'female';
   }
+  name = req.body['name']; 
+  gender = req.body['gender'];
+  phone = req.body['phone'];
 
   var userModel = new UserModel();
-  userModel.add(type, id, name, link, gender, email, birthday, locale, 
+  userModel.add(type, id, name, link, gender, email, birthday, locale, phone,
     function(ret, data){
     if( ret )
       res.json({
