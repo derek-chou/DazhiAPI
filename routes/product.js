@@ -24,9 +24,17 @@ router.route('/')
   var content = req.body['content'];
   var price = req.body['price'];
   var currency = req.body['currency'];
+  var city = req.body['city'];
+  var car = req.body['car'];
+  var drink = req.body['drink'];
+  var photo = req.body['photo'];
+  var smoke = req.body['smoke'];
+  var memo = req.body['memo'];
+  var maxNumber = req.body['maxNumber'];
+  var period = req.body['period'];
 
   var productModel = new ProductModel();
-  productModel.add(type, id, title, content, price, currency, 
+  productModel.add(type, id, title, content, price, currency, city, car, drink, photo, smoke, memo, maxNumber, period,
     function(ret, data){
     if( ret )
       res.json({

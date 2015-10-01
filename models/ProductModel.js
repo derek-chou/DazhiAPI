@@ -38,10 +38,12 @@ ProductModel.prototype.queryByTopicID = function(topicID, callback) {
   });
 };
 
-ProductModel.prototype.add = function(type, id, title, content, price, currency, callback) {
+ProductModel.prototype.add = function(type, id, title, content, price, currency, city, car, 
+    drink, photo, smoke, memo, maxNumber, period, callback) {
   var db = new dbBase();
-  db._query('select * from "spAddProduct"($1, $2, $3, $4, $5, $6)', 
-       [type ,id, title, content, price, currency]).then(function(result){
+  db._query('select * from "spAddProduct"($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', 
+       [type ,id, title, content, price, currency, city, car, drink, photo, smoke, memo, maxNumber, period]).
+  then(function(result){
     callback( true, result.rows );
   }).catch(function(err){
     callback( false, err );
