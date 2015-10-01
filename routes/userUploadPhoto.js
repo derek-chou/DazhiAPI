@@ -87,6 +87,29 @@ function fsSaveProductImage(file, folder, callback) {
   return deferred.promise.nodeify(callback) // the promise is returned
 }
 
+router.put('/userPhotoDelete', function(req, res) {
+  var db = new dbBase();
+  var type = req.body['type'];
+  var id = req.body['id'];
+  var idx = req.body['photo_idx'];
+
+  console.log('user photo delete');
+  db._query('select * from "spDeleteUserPhoto" ($1, $2, $3)', [type, id, idx],
+    function(ret, data){
+      var ret_code = data.rows[0]["spDeleteUserPhoto"];
+      if( ret_code !== -1 )
+        res.json({
+          result: 'success',
+        });
+      else {
+        res.json({
+          result: 'fail',
+          message: data,
+        });
+      }
+  });
+})
+
 /// Show files
 router.get('/userPhoto/:file', function (req, res){
   file = req.params.file;
