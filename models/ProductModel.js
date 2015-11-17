@@ -50,4 +50,14 @@ ProductModel.prototype.add = function(type, id, title, content, price, currency,
   });
 };
 
+ProductModel.prototype.putDown = function(type, id, product_id, callback) {
+  var db = new dbBase();
+  db._query('select "spPutDownProduct"($1, $2, $3)', 
+       [type, id, product_id]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 module.exports = ProductModel;

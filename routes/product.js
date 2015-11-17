@@ -49,6 +49,28 @@ router.route('/')
   });
 })
 
+.put(function(req, res) {
+  var type, id, product_id;
+  type = req.body['type']; 
+  id = req.body['id']; 
+  product_id = req.body['product_id']; 
+
+  var productModel = new ProductModel();
+  productModel.putDown(type, id, product_id,
+    function(ret, data){
+    if( ret )
+      res.json({
+        result: 'success',
+        return: data
+      });
+    else
+      res.json({
+        result: 'fail',
+        return: data
+      });
+  });
+})
+
 router.route('/byID')
 .get(function(req, res) {
   var productModel = new ProductModel();
