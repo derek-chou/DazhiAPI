@@ -32,14 +32,21 @@ router.route('/')
   var memo = req.body['memo'];
   var maxNumber = req.body['maxNumber'];
   var period = req.body['period'];
+  var tourType = req.body['tourType'];
+  var extra = req.body['extra'];
+  var deposit = req.body['deposit'];
+  var cancel = req.body['cancel'];
+  var agenda = req.body['agenda'];
+  console.log(agenda);
 
   var productModel = new ProductModel();
-  productModel.add(type, id, title, content, price, currency, city, car, drink, photo, smoke, memo, maxNumber, period,
+  productModel.add(type, id, title, content, price, currency, city, car, drink, 
+    photo, smoke, memo, maxNumber, period, tourType, extra, deposit, cancel, agenda,
     function(ret, data){
     if( ret )
       res.json({
         result: 'success',
-        seq : data[0].spAddProduct
+        prod_id : data[0].spAddProduct
       });
     else
       res.json({
