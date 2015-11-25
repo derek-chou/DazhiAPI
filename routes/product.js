@@ -123,8 +123,8 @@ router.route('/byTopicID')
 router.route('/search')
 .get(function(req, res) {
   var searchStr = req.query.str;
-  searchStr = searchStr.replace("%", "");
-  searchStr = searchStr.replace(" ", "%%");
+  searchStr = searchStr.replace(/%/g, "");
+  searchStr = searchStr.replace(/ /g, "%%");
   searchStr = "%" + searchStr + "%";
   console.log("search = " + searchStr);
   var productModel = new ProductModel();
