@@ -120,4 +120,23 @@ router.route('/byTopicID')
   });
 })
 
+router.route('/search')
+.get(function(req, res) {
+  var searchStr = req.query.str;
+  searchStr = searchStr.replace("%", "");
+  searchStr = searchStr.replace(" ", "%%");
+  searchStr = "%" + searchStr + "%";
+  console.log("search = " + searchStr);
+  var productModel = new ProductModel();
+  productModel.queryBySearch(searchStr, function(ret, data){
+    if(ret)
+      res.json(data);
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
 module.exports = router;

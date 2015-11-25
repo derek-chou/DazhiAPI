@@ -38,6 +38,14 @@ ProductModel.prototype.queryByTopicID = function(topicID, callback) {
   });
 };
 
+ProductModel.prototype.queryBySearch = function(searchString, callback) {
+  var db = new dbBase();
+  db._query('select * from "spGetProductBySearch"($1)', [searchString]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
 
 ProductModel.prototype.add = function(type, id, title, content, price, currency, city, car, 
     drink, photo, smoke, memo, maxNumber, period, tourType, extra, deposit, cancel, agenda, callback) {
