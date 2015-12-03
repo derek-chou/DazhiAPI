@@ -29,9 +29,9 @@ MessageModel.prototype.queryByUser = function(type, id, otherType, otherID, seq,
   });
 };
 
-MessageModel.prototype.updateRead = function(type, id, seq, callback) {
+MessageModel.prototype.updateRead = function(toType, toID, fromType, fromID, seq, callback) {
   var db = new dbBase();
-  db._query('SELECT "spSetMessageRead"($1, $2, $3);', [type, id, seq]).then(function(result){
+  db._query('SELECT "spSetMessageRead"($1, $2, $3, $4, $5);', [toType, toID, fromType, fromID, seq]).then(function(result){
     callback( true, result.rows );
   }).catch(function(err){
     callback( false, err );

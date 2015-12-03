@@ -21,13 +21,15 @@ router.route('/')
   //console.log(req.body);
   //console.log(Object.keys(req.body).length);
 
-  var type, id, seq;
-  type = req.body['type']; 
-  id = req.body['id']; 
+  var toType, toID, fromType, fromID, seq;
+  toType = req.body['to_type']; 
+  toID = req.body['to_id']; 
+  fromType = req.body['from_type']; 
+  fromID = req.body['from_id']; 
   seq = req.body['seq']; 
 
   var messageModel = new MessageModel();
-  messageModel.updateRead(type, id, seq, 
+  messageModel.updateRead(toType, toID, fromType, fromID, seq, 
     function(ret, data){
     if( ret )
       res.json({
