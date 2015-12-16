@@ -47,6 +47,17 @@ ProductModel.prototype.queryBySearch = function(searchString, callback) {
   });
 };
 
+ProductModel.prototype.queryByAdvanceSearch = function(date, gender, lang, minAge, 
+  maxAge, minPrice, maxPrice, callback) {
+  var db = new dbBase();
+  db._query('select * from "spGetProductByAdvanceSearch"($1, $2, $3, $4, $5, $6, $7)', 
+    [date, gender, lang, minAge, maxAge, minPrice, maxPrice]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 ProductModel.prototype.add = function(type, id, title, content, price, currency, city, car, 
     drink, photo, smoke, memo, maxNumber, period, tourType, extra, deposit, cancel, agenda, callback) {
 

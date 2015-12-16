@@ -139,4 +139,25 @@ router.route('/search')
   });
 })
 
+router.route('/AdvanceSearch')
+.get(function(req, res) {
+  var date = req.query.date;
+  var gender = req.query.gender;
+  var lang = req.query.lang;
+  var minAge = req.query.minAge;
+  var maxAge = req.query.maxAge;
+  var minPrice = req.query.minPrice;
+  var maxPrice = req.query.maxPrice;
+  var productModel = new ProductModel();
+  productModel.queryByAdvanceSearch(date, gender, lang, minAge, maxAge, minPrice, maxPrice, function(ret, data){
+    if(ret)
+      res.json(data);
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
 module.exports = router;
