@@ -24,9 +24,10 @@ router.route('/')
   var travelDay = req.body['travelDay'];
   var numberOfPeople = req.body['numberOfPeople'];
   var memo = req.body['memo'];
+  var amount = req.body['amount'];
 
   var orderModel = new OrderModel();
-  orderModel.add(type, id, productID, travelDay, numberOfPeople, memo,
+  orderModel.add(type, id, productID, travelDay, numberOfPeople, memo, amount, 
     function(ret, data){
 
     var desc = '';
