@@ -141,6 +141,11 @@ router.route('/search')
 
 router.route('/AdvanceSearch')
 .get(function(req, res) {
+  var searchStr = req.query.str;
+  searchStr = searchStr.replace(/%/g, "");
+  searchStr = searchStr.replace(/ /g, "%%");
+  searchStr = "%" + searchStr + "%";
+
   var date = req.query.date;
   var gender = req.query.gender;
   var lang = req.query.lang;
@@ -149,7 +154,7 @@ router.route('/AdvanceSearch')
   var minPrice = req.query.minPrice;
   var maxPrice = req.query.maxPrice;
   var productModel = new ProductModel();
-  productModel.queryByAdvanceSearch(date, gender, lang, minAge, maxAge, minPrice, maxPrice, function(ret, data){
+  productModel.queryByAdvanceSearch(searchStr, date, gender, lang, minAge, maxAge, minPrice, maxPrice, function(ret, data){
     if(ret)
       res.json(data);
     else
