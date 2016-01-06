@@ -3,7 +3,6 @@ var CommentModel = require('CommentModel');
 var router = express.Router();
 
 router.route('/')
-
 .get(function(req, res) {
   var commentModel = new CommentModel();
   commentModel.query(req.query.type, req.query.id, req.query.seq, function(ret, data){
@@ -34,6 +33,20 @@ router.route('/')
         result: 'success',
         seq: data[0]["spAddComment"]
       });
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
+router.route('/send')
+.get(function(req, res) {
+  var commentModel = new CommentModel();
+  commentModel.queryByFrom(req.query.from_type, req.query.from_id, req.query.seq, function(ret, data){
+    if(ret)
+      res.json(data);
     else
       res.json({
         result: 'fail',

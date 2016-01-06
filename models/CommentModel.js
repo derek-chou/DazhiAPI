@@ -11,6 +11,15 @@ CommentModel.prototype.query = function(type, id, seq, callback) {
   });
 };
 
+CommentModel.prototype.queryByFrom = function(fromType, fromID, seq, callback) {
+  var db = new dbBase();
+  db._query('select * from "spGetCommentSend"($1, $2, $3)', [fromType, fromID, seq]).then(function(result){
+    callback( true, result.rows );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
+
 CommentModel.prototype.add = function(type, id, from_type, from_id, score, comment, order_id, callback) {
   var db = new dbBase();
   db._query('select "spAddComment"($1, $2, $3, $4, $5, $6, $7)', 
