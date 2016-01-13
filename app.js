@@ -24,6 +24,7 @@ var order = require('./routes/order');
 var sysParam = require('./routes/sysParameter');
 var userUpload = require('./routes/userUploadPhoto');
 var availableDate = require('./routes/availableDate');
+var setting = require('./routes/setting');
 
 var app = express();
 
@@ -40,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({ dest: 'public/images/uploads/'}));
 
-app.use('/', index);
+//app.use('/', index);
 app.use('/api', api);
 app.use('/', upload);
 app.use('/user', user);
@@ -53,6 +54,7 @@ app.use('/order', order);
 app.use('/sysParameter', sysParam);
 app.use('/', userUpload);
 app.use('/availableDate', availableDate);
+app.use('/setting', setting);
 
 //require('dns').lookup(require('os').hostname(), function (err, add, fam) {
 //  config.urlPrefix = 'http://' + add + ':8080/';
