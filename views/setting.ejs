@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +7,26 @@
     <title>setting</title>
 
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
   </head>
   <body>
     <script src="/javascripts/jquery-1.9.1.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script lang="javascript">
+    </script>
 
-    <input type="text" name="userName"></input> <br/>
-    <input type="checkbox">男</input><input type="checkbox">女</input> <br/>
-    <input type="date"></input> <br/>
-    <select id="citySelect">
-	  <option>台灣 台北</option>
-	  <option>日本 東京</option>
-	  <option>美國 紐約</option>
-	  <option>英國 倫敦</option>
-	</select>
+    <form class="form-control" role="form">
+      <input type="file" placeholder="請選擇圖片" multiple/>
+      <input type="text" name="userName" placeholder="請輸入您的姓名"></input> <br/>
+      <label class="radio-inline"><input type="radio" name="optradio">男</label>
+      <label class="radio-inline"><input type="radio" name="optradio">女</label> <br/> <br/>
+      <input type="date" placeholder="請選擇您的出生年月日" class="form-control" value="2012-12-12"></input>
+      <select id="citySelect" class="form-control">
+  	  <option>台灣 台北</option>
+  	  <option>日本 東京</option>
+  	  <option>美國 紐約</option>
+  	  <option>英國 倫敦</option>
+      </select>
+    </form>
   </body>
 </html>
