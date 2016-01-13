@@ -32,4 +32,10 @@ router.get('/privacy', function(req, res, next) {
   res.render(lang+'/privacy');
 });
 
+router.get('/faq', function(req, res, next) {
+  var lang = getLangPath(req.query.lang);
+
+  res.render(lang+'/faq');
+});
+
 module.exports = router;
