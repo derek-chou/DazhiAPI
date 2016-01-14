@@ -2,7 +2,29 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('setting', { title: 'Express' });
+  var userType = req.query.type;
+  var userID = req.query.id;
+
+  if(userType === undefined || userID === undefined)
+  	res.json({
+        result: 'fail',
+        message: 'incorrect parameters'
+    });
+  else
+  	res.render('setting', { userType:userType, userID:userID });
+});
+
+router.post('/', function(req, res, next) {
+  var userType = req.body['type'];
+  var userID = req.body['id'];
+
+  if(userType === undefined || userID === undefined)
+  	res.json({
+        result: 'fail',
+        message: 'incorrect parameters'
+    });
+  else
+  	res.render('setting', { userType:userType, userID:userID });
 });
 
 function getLangPath(lang) {
