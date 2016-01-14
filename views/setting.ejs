@@ -34,69 +34,76 @@
 
     <script>
     $(document).on('ready', function() {
-        $("#inputPhoto").fileinput({
-            browseClass: "btn btn-primary btn-block",
-            initialPreview: [
-            ],
-            language: "zh-TW",
-            overwriteInitial: false,
-            //maxFileSize: 1000,
-            initialCaption: "請選擇照片",
-            showCaption: true,
-            showRemove: true,
-            showUpload: false,
-            // minImageWidth: 50,
-            // minImageHeight: 50,
-            // maxImageWidth: 80,
-            // maxImageHeight: 80,
-            previewFileType: "image",
-            browseClass: "btn btn-success",
-            browseLabel: "請選擇照片",
-            browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
-        });
+      $.getJSON("sysParameter",{'lang':'zh_TW'}, function(data){
+        console.log(data);
+        var options = '';
+        for (var i = 0; i < data.length; i++) {
+          if (data[i]._type === 'city') {
+            var value = data[i]._value.replace('$', ' ');
+            options += '<option value="' + data[i]._key + '">' + value + '</option>';
+          }
+        }
+        $("select#citySelect").html(options);
+      })
 
-      var btnCust = '<button type="button" class="btn btn-default" title="Add picture tags" ' + 
-      'onclick="alert(\'Call your custom code here.\')">' +
-      '<i class="glyphicon glyphicon-tag"></i>' +
-      '</button>'; 
-      $("#avatar").fileinput({
-          overwriteInitial: true,
-          //maxFileSize: 1500,
-          showClose: false,
-          showCaption: false,
-          browseLabel: '',
-          removeLabel: '',
-          browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
-          removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-          removeTitle: 'Cancel or reset changes',
-          elErrorContainer: '#kv-avatar-errors',
-          msgErrorClass: 'alert alert-block alert-danger',
+      $.ajax({
+        type        : 'GET',
+        url         : 'user',
+        data        : {'type':'FB', 'id':'10153433568951071'},
+        dataType    : 'json',
+        encode      : true
+      }).done(function(data) {
+        console.log(data[0]);
+        $('#userName').val(data[0]._name);
+        $('[name=userName]').val(data[0]._name);
 
-          defaultPreviewContent: '<img src="/images/default_avatar_male.jpg" alt="Your Avatar" style="width:80px;">',
-          layoutTemplates: {main2: '{preview} {remove} {browse}'}
-          //layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'}
-          //allowedFileExtensions: ["jpg", "png", "gif"]
+        var $radios = $('input:radio[name=gender]');
+        if (data[0]._gender === 'male')
+          $radios.filter('[value=Male]').prop('checked', true);
+        else
+          $radios.filter('[value=Female]').prop('checked', true);
+
+        var birthdayAry = data[0]._birthday.split("/");
+        var birthdayDate = new Date(birthdayAry[2], birthdayAry[0]-1, birthdayAry[1]);
+        console.log(birthdayDate);
+        var birthdayStr = birthdayDate.getFullYear() + '-' +
+             ('0' + (birthdayDate.getMonth()+1)).slice(-2) + '-' +
+             ('0' + birthdayDate.getDate()).slice(-2);
+        $('#birthday').val(birthdayStr);
+
+        $("select#citySelect").val(data[0]._city);
+      });
+
+      $("#inputPhoto").fileinput({
+          browseClass: "btn btn-primary btn-block",
+          initialPreview: [
+          ],
+          language: "zh-TW",
+          overwriteInitial: false,
+          //maxFileSize: 1000,
+          initialCaption: "請選擇照片",
+          showCaption: true,
+          showRemove: true,
+          showUpload: false,
+          previewFileType: "image",
+          browseClass: "btn btn-success",
+          browseLabel: "請選擇照片",
+          browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
       });
     });
     </script>
     
     <div id="kv-avatar-errors" class="center-block" style="width:320px;display:none"></div>
     <form>
-<!--       <div class="kv-avatar center-block" style="width:100px;">
-        <input id="avatar" name="avatar" type="file" multiple class="file-loading">
-      </div>
- -->
       <input id="inputPhoto" name="inputPhoto" type="file" multiple class="file-loading" accept="image/*"><br/>
-      <input type="text" name="userName" placeholder="請輸入您的姓名"></input> <br/>
-      <label class="radio-inline"><input type="radio" name="optradio">男</label>
-      <label class="radio-inline"><input type="radio" name="optradio">女</label> <br/> <br/>
-      <input type="date" placeholder="請選擇您的出生年月日" class="form-control" value="2012-12-12"></input>
+      <input type="text" name="userName" placeholder="請輸入您的姓名" class="form-control"></input> <br/>
+      <label class="radio-inline"><input type="radio" name="gender" value="Male">男</label>
+      <label class="radio-inline"><input type="radio" name="gender" value="Female">女</label> <br/> <br/>
+      <input type="date" id="birthday" placeholder="請選擇您的出生年月日" class="form-control" value="2012-12-12"></input>
       <select id="citySelect" class="form-control">
-    	  <option>台灣 台北</option>
-    	  <option>日本 東京</option>
-    	  <option>美國 紐約</option>
-    	  <option>英國 倫敦</option>
       </select>
+
+      <a href="http://127.0.0.1:8080/setting">local server(127.0.0.1)</a>
     </form>
   </body>
 </html>
