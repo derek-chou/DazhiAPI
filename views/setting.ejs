@@ -37,7 +37,7 @@
     <script>
     $(document).on('ready', function() {
       $.getJSON("sysParameter",{'lang':'zh_TW'}, function(data){
-        console.log(data);
+        //console.log(data);
         var options = '';
         for (var i = 0; i < data.length; i++) {
           if (data[i]._type === 'city') {
@@ -107,7 +107,7 @@
       <input type="text" name="userName" placeholder="請輸入您的姓名" class="form-control"></input> <br/>
       <label class="radio-inline"><input type="radio" name="gender" value="Male">男</label>
       <label class="radio-inline"><input type="radio" name="gender" value="Female">女</label> <br/> <br/>
-      <input type="date" id="birthday" placeholder="請選擇您的出生年月日" class="form-control" value="2012-12-12"></input>
+      <input type="date" id="birthday" placeholder="請選擇您的出生年月日" class="form-control"></input>
       <select id="citySelect" class="form-control">
       </select>
 
