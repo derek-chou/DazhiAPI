@@ -32,10 +32,17 @@
         max-width: 100px;
         /*max-height: 130px;*/
     }
+    .file-preview-image{max-width:80px;width:80px;max-height:60px;height:60px;
+      display:inline-block;margin:0px;padding:0px;object-fit:cover;}
+    .file-footer-caption{display:none;}
+    .file-preview-frame{max-width:82px;width:82px;max-height:62px;height:62px;margin:0px;padding:0px;}
     </style>
 
     <script>
     $(document).on('ready', function() {
+      var userType = $('#userType').val();
+      var userID = $('#userID').val();
+
       $.getJSON("sysParameter",{'lang':'zh_TW'}, function(data){
         //console.log(data);
         var options = '';
@@ -48,8 +55,6 @@
         $("select#citySelect").html(options);
       })
 
-      var userType = $('#userType').val();
-      var userID = $('#userID').val();
       console.log(userType + ' ' + userID);
       $.ajax({
         type        : 'GET',
@@ -79,9 +84,12 @@
         $("select#citySelect").val(data[0]._city);
       });
 
+      var imgUrl = '<img src="http://graph.facebook.com/"'+userID+'"/picture?type=large" class="file-preview-image">';
+      console.log(imgUrl);
       $("#inputPhoto").fileinput({
           browseClass: "btn btn-primary btn-block",
           initialPreview: [
+            '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
           ],
           language: "zh-TW",
           overwriteInitial: false,
@@ -103,7 +111,7 @@
 
     <div id="kv-avatar-errors" class="center-block" style="width:320px;display:none"></div>
     <form>
-      <input id="inputPhoto" name="inputPhoto" type="file" multiple class="file-loading" accept="image/*"><br/>
+      <input id="inputPhoto" name="inputPhoto" type="file" multiple class="file-loading" accept="image/*" data-show-caption="false"><br/>
       <input type="text" name="userName" placeholder="請輸入您的姓名" class="form-control"></input> <br/>
       <label class="radio-inline"><input type="radio" name="gender" value="Male">男</label>
       <label class="radio-inline"><input type="radio" name="gender" value="Female">女</label> <br/> <br/>
