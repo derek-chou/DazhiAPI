@@ -39,10 +39,7 @@
     </style>
 
     <script>
-    $(document).on('ready', function() {
-      var userType = $('#userType').val();
-      var userID = $('#userID').val();
-
+    $(window).load(function(){
       $.getJSON("sysParameter",{'lang':'zh_TW'}, function(data){
         //console.log(data);
         var options = '';
@@ -54,6 +51,12 @@
         }
         $("select#citySelect").html(options);
       })
+    });
+    
+    $(document).on('ready', function() {
+      var userType = $('#userType').val();
+      var userID = $('#userID').val();
+
 
       console.log(userType + ' ' + userID);
       $.ajax({
