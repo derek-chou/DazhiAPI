@@ -43,6 +43,14 @@
     </style>
 
     <script>
+    function androidUploadCompleted(filename) {
+
+    }
+
+    function androidChooseFile() {
+
+    }
+
     function doAction() {
       var files = $('#uploadPhoto')[0].files;
 
@@ -114,12 +122,12 @@
           initialPreview: [
             '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
           ],
-          append: true,
           language: "zh-TW",
           overwriteInitial: false,
           //maxFileSize: 1000,
           initialCaption: "請選擇照片",
-          maxImageWidth: 200,
+          maxImageHeight: 60,
+          maxImageWidth: 80,
           // maxFileCount: 1,
           resizeImage: true,
           showCaption: true,
@@ -186,7 +194,7 @@
                 elem.width = 80;
                 //$("#userPhoto").appendChild(elem);
                 //$("#userPhoto").appendChild(elem);
-                document.getElementById("userPhoto").appendChild(elem);
+                document.getElementsByClassName("clearfix")[0].appendChild(elem);
               }
             });
 
