@@ -145,7 +145,7 @@
             $('[name=userName]').val(data[0]._name);
 
             var $radios = $('input:radio[name=gender]');
-            if (data[0]._gender === 'male')
+            if ((data[0]._gender === 'male') || (data[0]._gender === 'Male'))
               $radios.filter('[value=Male]').prop('checked', true);
             else
               $radios.filter('[value=Female]').prop('checked', true);
