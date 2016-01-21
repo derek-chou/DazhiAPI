@@ -29,6 +29,7 @@ var im = require('imagemagick');
 
 /// Post files
 router.post('/userUploadPhoto', function(req, res) {
+  //console.log(req);
   // console.log(req.files.imageName.name);
   // console.log(req.files.imageName);
   var imageType = req.body.ImageType;
