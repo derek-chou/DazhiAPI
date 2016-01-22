@@ -53,32 +53,33 @@
         document.getElementById("uploadPhoto").style.display = "none";
       } else {
         document.getElementById("androidUpload").style.display = "none";
+  
+        var userType = $('#userType').val();
+        var userID = $('#userID').val();
+        //選擇照片初始化
+        $("#uploadPhoto").fileinput({
+            browseClass: "btn btn-primary btn-block",
+            //initialPreview: [
+            //   '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
+            // ],
+            language: "zh-TW",
+            overwriteInitial: false,
+            //maxFileSize: 1000,
+            initialCaption: "請選擇照片",
+            maxImageHeight: 60,
+            maxImageWidth: 80,
+            // maxFileCount: 1,
+            resizeImage: true,
+            showCaption: true,
+            showRemove: true,
+            showUpload: false,
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: "請選擇照片",
+            browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
+        });
       }
 
-      var userType = $('#userType').val();
-      var userID = $('#userID').val();
-      //選擇照片初始化
-      $("#uploadPhoto").fileinput({
-          browseClass: "btn btn-primary btn-block",
-          //initialPreview: [
-          //   '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
-          // ],
-          language: "zh-TW",
-          overwriteInitial: false,
-          //maxFileSize: 1000,
-          initialCaption: "請選擇照片",
-          maxImageHeight: 60,
-          maxImageWidth: 80,
-          // maxFileCount: 1,
-          resizeImage: true,
-          showCaption: true,
-          showRemove: true,
-          showUpload: false,
-          previewFileType: "image",
-          browseClass: "btn btn-success",
-          browseLabel: "請選擇照片",
-          browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
-      });
     }
 
     function androidUploadCompleted(fileName) {
