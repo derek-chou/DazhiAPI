@@ -79,9 +79,13 @@
       });
     }
 
-    function androidUploadCompleted(filaName) {
+    function androidUploadCompleted(fileName) {
+      BootstrapDialog.show({
+        title: '訊息',
+        message: fileName,
+
       var elem = document.createElement("img");
-      elem.src = e;
+      elem.src = fileName;
       elem.height = 60;
       elem.width = 80;
       document.getElementsByClassName("clearfix")[0].appendChild(elem);
