@@ -83,10 +83,10 @@
     }
 
     function androidUploadCompleted(fileName) {
-      // BootstrapDialog.show({
-      //   title: '訊息',
-      //   message: fileName
-      // });
+      BootstrapDialog.show({
+        title: '訊息',
+        message: fileName
+      });
 
       var elem = document.createElement("img");
       elem.src = fileName;
