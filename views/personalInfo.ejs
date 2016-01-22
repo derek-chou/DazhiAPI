@@ -43,12 +43,55 @@
     </style>
 
     <script>
-    function androidUploadCompleted(filename) {
+    function systemDetect() {
+      //var ver = Android.GetSDK();
+      var userAgent= navigator.userAgent.toLowerCase();
+      if(userAgent.indexOf("android") > -1) {
+        document.getElementById("uploadPhoto").style.display = "none";
+      } else {
+        document.getElementById("androidUpload").style.display = "none";
 
+        var userType = $('#userType').val();
+        var userID = $('#userID').val();
+        //選擇照片初始化
+        $("#uploadPhoto").fileinput({
+            browseClass: "btn btn-primary btn-block",
+            initialPreview: [
+              '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
+            ],
+            language: "zh-TW",
+            overwriteInitial: false,
+            //maxFileSize: 1000,
+            initialCaption: "請選擇照片",
+            maxImageHeight: 60,
+            maxImageWidth: 80,
+            // maxFileCount: 1,
+            resizeImage: true,
+            showCaption: true,
+            showRemove: true,
+            showUpload: false,
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: "請選擇照片",
+            browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
+        });
+      }
+    }
+
+    function androidUploadCompleted(filaName) {
+      var elem = document.createElement("img");
+      elem.src = e;
+      elem.height = 60;
+      elem.width = 80;
+      document.getElementsByClassName("clearfix")[0].appendChild(elem);
+    }
+
+    function showAndroidToast(toast) {
+      Android.showToast(toast);
     }
 
     function androidChooseFile() {
-
+      Android.choosePhoto();
     }
 
     function doAction() {
@@ -86,6 +129,7 @@
       var userType = $('#userType').val();
       var userID = $('#userID').val();
 
+      systemDetect();
       $('#actButton').click(function(){
         doAction();
       });
@@ -115,29 +159,6 @@
         });
         $('#jobSelect').html(jobOptions);
       })
-
-      //選擇頭像初始化
-      $("#uploadPhoto").fileinput({
-          browseClass: "btn btn-primary btn-block",
-          initialPreview: [
-            '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
-          ],
-          language: "zh-TW",
-          overwriteInitial: false,
-          //maxFileSize: 1000,
-          initialCaption: "請選擇照片",
-          maxImageHeight: 60,
-          maxImageWidth: 80,
-          // maxFileCount: 1,
-          resizeImage: true,
-          showCaption: true,
-          showRemove: true,
-          showUpload: false,
-          previewFileType: "image",
-          browseClass: "btn btn-success",
-          browseLabel: "請選擇照片",
-          browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
-      });
 
       //每200ms檢查langSelect是否己載入sysParameter完成
       //將資訊填入相應欄位
@@ -212,8 +233,8 @@
       <input type="hidden" id="userType" value=<%= userType %>></input>
       <input type="hidden" id="userID" value=<%= userID %>></input>
 
-      <input id="uploadPhoto" type="file" multiple class="file-loading" accept="image/*" data-show-caption="false"><br/>
-      <div id="userPhoto"></div><br/>
+      <input id="uploadPhoto" type="file" multiple class="file-loading" accept="image/*" data-show-caption="false">
+      <input type="button" id="androidUpload" value="Choose Photo(4.4)" onClick="androidChooseFile()" /><br/>
       <input type="text" name="userName" placeholder="請輸入您的姓名" class="form-control"></input>
       <label class="radio-inline"><input type="radio" name="gender" value="Male">男</label>
       <label class="radio-inline"><input type="radio" name="gender" value="Female">女</label> <br/><br/>
