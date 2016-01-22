@@ -38,6 +38,8 @@
     }
     .file-preview-image{max-width:80px;width:80px;max-height:60px;height:60px;
       display:inline-block;margin:0px;padding:0px;object-fit:cover;}
+    .preview-image{max-width:80px;width:80px;max-height:60px;height:60px;
+      margin:0px;padding:0px;object-fit:cover;}
     .file-footer-caption{display:none;}
     .file-preview-frame{max-width:82px;width:82px;max-height:62px;height:62px;margin:0px;padding:0px;}
     </style>
@@ -58,9 +60,9 @@
       //選擇照片初始化
       $("#uploadPhoto").fileinput({
           browseClass: "btn btn-primary btn-block",
-          initialPreview: [
-            '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
-          ],
+          //initialPreview: [
+          //   '<img src="http://graph.facebook.com/'+userID+'/picture?type=large" class="file-preview-image">'
+          // ],
           language: "zh-TW",
           overwriteInitial: false,
           //maxFileSize: 1000,
@@ -80,16 +82,18 @@
     }
 
     function androidUploadCompleted(fileName) {
-      BootstrapDialog.show({
-        title: '訊息',
-        message: fileName
-      });
+      // BootstrapDialog.show({
+      //   title: '訊息',
+      //   message: fileName
+      // });
 
       var elem = document.createElement("img");
       elem.src = fileName;
       elem.height = 60;
       elem.width = 80;
-      document.getElementsByClassName("clearfix")[0].appendChild(elem);
+      elem.classList.add("preview-image");
+      //document.getElementsByClassName("userPhoto")[0].appendChild(elem);
+      document.getElementById("userPhoto").appendChild(elem);
     }
 
     function showAndroidToast(toast) {
@@ -210,18 +214,19 @@
 
             var photos = data[0]._photo;
             //alert($('#uploadPhoto').fileinput);
+            var fbPhoto = "http://graph.facebook.com/"+userID+"/picture?type=large";
+            androidUploadCompleted(fbPhoto);
             $.each(photos.split(","), function(i,e){
               if (e.length != 0) {
                 //$('#uploadPhoto').val('<img src="'+e+' class="file-preview-image">');
                 //$('#uploadPhoto').fileinput.append(e);
 
-                var elem = document.createElement("img");
-                elem.src = e;
-                elem.height = 60;
-                elem.width = 80;
-                //$("#userPhoto").appendChild(elem);
-                //$("#userPhoto").appendChild(elem);
-                document.getElementsByClassName("clearfix")[0].appendChild(elem);
+                androidUploadCompleted(e);
+                // var elem = document.createElement("img");
+                // elem.src = e;
+                // elem.height = 60;
+                // elem.width = 80;
+                // document.getElementsByClassName("clearfix")[0].appendChild(elem);
               }
             });
 
@@ -239,6 +244,7 @@
       <input type="hidden" id="userType" value=<%= userType %>></input>
       <input type="hidden" id="userID" value=<%= userID %>></input>
 
+      <div id="userPhoto"></div><br/>
       <input id="uploadPhoto" type="file" multiple class="file-loading" accept="image/*" data-show-caption="false">
       <input type="button" id="androidUpload" value="Choose Photo(4.4)" onClick="androidChooseFile()" /><br/>
       <input type="text" name="userName" placeholder="請輸入您的姓名" class="form-control"></input>
