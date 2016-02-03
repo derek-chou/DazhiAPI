@@ -25,6 +25,9 @@ var sysParam = require('./routes/sysParameter');
 var userUpload = require('./routes/userUploadPhoto');
 var availableDate = require('./routes/availableDate');
 var setting = require('./routes/setting');
+var guideCalendar = require('./routes/GuideMode/calendar');
+var orderManage = require('./routes/GuideMode/orderManage');
+var productManage = require('./routes/GuideMode/productManage');
 
 var app = express();
 
@@ -55,6 +58,9 @@ app.use('/sysParameter', sysParam);
 app.use('/', userUpload);
 app.use('/availableDate', availableDate);
 app.use('/setting', setting);
+app.use('/guideMode', guideCalendar);
+app.use('/guideMode', orderManage);
+app.use('/guideMode', productManage);
 
 //require('dns').lookup(require('os').hostname(), function (err, add, fam) {
 //  config.urlPrefix = 'http://' + add + ':8080/';

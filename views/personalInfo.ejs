@@ -79,7 +79,6 @@
             browseIcon: "<i class=\"glyphicon glyphicon-user\"></i> "
         });
       }
-
     }
 
     function androidUploadCompleted(fileName) {
@@ -95,7 +94,6 @@
       elem.classList.add("preview-image");
       //document.getElementsByClassName("userPhoto")[0].appendChild(elem);
       document.getElementById("userPhoto").appendChild(elem);
-      document.getElementById("userEmail").value = fileName;
     }
 
     function showAndroidToast(toast) {
@@ -129,12 +127,16 @@
         contentType : false,
         processData : false
       }).done(function(data) {
+        //alert(window.location.href + "?type="+$('#userType').val()+"&id="+$('#userID').val(););
         //alert(data.result);
         BootstrapDialog.show({
           title: '訊息',
           message: data.result,
         });
       });
+      //window.location.href = window.location.href + "?type="+$('#userType').val()+"&id="+$('#userID').val();
+      //alert(window.location.href);
+      location.reload();
     }
 
     $(document).on('ready', function() {
@@ -264,7 +266,7 @@
       <button id="actButton" type="button" class="btn btn-default" class="btn btn-default">確認</button>
 
       <br/>
-      <a href="http://127.0.0.1:8080/setting?type=<%=userType%>&id=<%=userID%>">local server(127.0.0.1)</a>
+      <a href="http://127.0.0.1:8080/setting/personalInfo?type=<%=userType%>&id=<%=userID%>">local server(127.0.0.1)</a>
     </form>
   </body>
 </html>
