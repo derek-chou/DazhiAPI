@@ -127,16 +127,19 @@
         contentType : false,
         processData : false
       }).done(function(data) {
-        //alert(window.location.href + "?type="+$('#userType').val()+"&id="+$('#userID').val(););
-        //alert(data.result);
+        //location.reload();
         BootstrapDialog.show({
           title: '訊息',
           message: data.result,
+          onhidden: function(dialogRef) {
+            location.reload();
+          }
         });
+        // BootstrapDialog.alert(data.result);
       });
       //window.location.href = window.location.href + "?type="+$('#userType').val()+"&id="+$('#userID').val();
       //alert(window.location.href);
-      location.reload();
+      //location.reload();
     }
 
     $(document).on('ready', function() {
