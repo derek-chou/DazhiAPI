@@ -3,21 +3,40 @@
 <head>
     <title>行事曆設定</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/calendar.min.css">
+    <link rel="stylesheet" href="/stylesheets/calendar.css">
+    <link href="/stylesheets/bootstrap-dialog.min.css" type="text/css" rel="stylesheet"/>
+
 </head>
 <body>
+<div class="container">
+    <div class="page-header" style="margin-top:-10px">
+        <div class="pull-right form-inline">
+            <div class="btn-group">
+                <button class="btn btn-primary" data-calendar-nav="prev"><<</button>
+                <button class="btn" data-calendar-nav="today" style="background-color:#D9FAD9">今天</button>
+                <button class="btn btn-primary" data-calendar-nav="next">>></button>
+            </div>
+        </div>
+
+        <h3></h3>
+    </div>
 
     <div id="calendar"></div>
 
+    <script type="text/javascript">
+        // var calendar = $("#calendar").calendar({
+        //         tmpl_path: "/javascripts/calendar_tmpls/",
+        //         events_source: function () { return []; }
+        //     });         
+    </script>
     <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/underscore-min.js"></script>
-    <script type="text/javascript" src="/javascripts/calendar.min.js"></script>
-    <script type="text/javascript">
-        var calendar = $("#calendar").calendar(
-            {
-                tmpl_path: "/javascripts/calendar_tmpls/",
-                events_source: function () { return []; }
-            });         
-    </script>
+    <script src="/javascripts/bootstrap-dialog.min.js"></script>
+
+    <script type="text/javascript" src="/javascripts/calendar_language/zh-CN.js"></script>
+    <script type="text/javascript" src="/javascripts/calendar_language/zh-TW.js"></script>
+    <script type="text/javascript" src="/javascripts/calendar.js"></script>
+    <script type="text/javascript" src="/javascripts/app.js"></script>
+</div> <!-- container -->
 </body>
 </html>

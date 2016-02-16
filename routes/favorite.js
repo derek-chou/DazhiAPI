@@ -30,7 +30,7 @@ router.route('/')
     if( ret )
       res.json({
         result: 'success',
-        return: data
+        return: data.rows[0]
       });
     else
       res.json({
@@ -53,7 +53,7 @@ router.route('/')
     if( ret )
       res.json({
         result: 'success',
-        return: data
+        return: data.rows[0]
       });
     else
       res.json({

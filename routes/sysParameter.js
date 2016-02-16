@@ -17,4 +17,44 @@ router.route('/')
   });
 })
 
+.post(function(req, res) {
+  var type = req.body['type'];
+  var key = req.body['key'];
+  var value = req.body['value'];
+  var valueCH = req.body['value_ch'];
+  var sorting = req.body['sorting'];
+  console.log(type);
+
+  var sysParameterModel = new SysParameterModel();
+  sysParameterModel.add(type, key, value, valueCH, sorting, function(ret, data){
+    if(ret)
+      res.json({
+        return: data.rows[0].spAddSysParameter
+      });
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
+.put(function(req, res) {
+  var type = req.body['type'];
+  var key = req.body['key'];
+
+  var sysParameterModel = new SysParameterModel();
+  sysParameterModel.delete(type, key, function(ret, data){
+    if(ret)
+      res.json({
+        return: data.rows[0].spDeleteSysParameter
+      });
+    else
+      res.json({
+        result: 'fail',
+        message: data
+      });
+  });
+})
+
 module.exports = router;
