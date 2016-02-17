@@ -56,6 +56,7 @@ router.route('/')
   });
 })
 
+router.route('/putDown')
 .put(function(req, res) {
   var type, id, product_id;
   type = req.body['type']; 
@@ -67,8 +68,29 @@ router.route('/')
     function(ret, data){
     if( ret )
       res.json({
-        result: 'success',
+        return: data.rows[0].spPutDownProduct
+      });
+    else
+      res.json({
+        result: 'fail',
         return: data
+      });
+  });
+})
+
+router.route('/putUp')
+.put(function(req, res) {
+  var type, id, product_id;
+  type = req.body['type']; 
+  id = req.body['id']; 
+  product_id = req.body['product_id']; 
+
+  var productModel = new ProductModel();
+  productModel.putUp(type, id, product_id,
+    function(ret, data){
+    if( ret )
+      res.json({
+        return: data.rows[0].spPutUpProduct
       });
     else
       res.json({
