@@ -1103,7 +1103,80 @@ if(!String.prototype.formatNum) {
 				downbox.hide();
 			})
 			.on('click', function(event) {
-				//alert('click');
+				//alert($(this).children('[data-cal-date]').text());
+				var currDate = $(this).children('[data-cal-date]').data('cal-date');
+				var dtCurr = new Date(currDate);
+				var year = dtCurr.getFullYear();
+				var month = (1 + dtCurr.getMonth()).toString();
+				month = (month.length == 1) ? '0'+month : month;
+				var day = dtCurr.getDate();
+				var currStr = year + '/' + month + '/' + day;
+				var dtReCurr = new Date(currStr);
+
+				var currSecs = dtReCurr.getTime();
+				//alert(currSecs);
+				var eventArray = self.options.events;
+				//alert(self.options.position.start + '' + self.options.position.end);
+				if(dtReCurr < self.options.position.start || dtReCurr >= self.options.position.end) {
+					//alert('not this month');
+					return;
+				}
+
+				var obj = {
+	              id: 999,
+	              title: "可預約",
+	              url: "",
+	              class: "event-important",
+	              start: currSecs,
+	              end: currSecs
+	            };
+
+	            function containsObject(obj, list) {
+ 					var i;
+    				for (i = 0; i < list.length; i++) {
+			    	    if (list[i].start == obj.start) {
+			        	    return true;
+        				}
+    				}
+
+    				return false;
+				}
+
+				function removeObject(obj, list) {
+ 					var i;
+    				for (i = 0; i < list.length; i++) {
+			    	    if (list[i].start == obj.start) {
+			        	    list.splice(i,1);
+        				}
+    				}
+				}
+
+				var objExists = containsObject(obj, eventArray);
+				//alert(objExists);
+				if(objExists)
+	            	removeObject(obj, eventArray);
+	            else
+	            	eventArray.push(obj);
+	            //self.options.events = eventArray;
+	            //alert(eventArray.length);
+
+	            self._render();
+				var userType = $('#userType').val();
+				var userID = $('#userID').val();
+
+	            $.ajax({
+			        type        : 'POST',
+			        url         : '../availableDate/byCalendar',
+			        data        : JSON.stringify({'type':userType, 'id':userID, 'month':year+''+month, 'day':parseInt(day)}),
+			        dataType    : 'json',
+			        cache       : false,
+			        contentType : 'application/json; charset=utf-8',
+			        processData : false
+			    }).done(function(data) {
+			    	//alert('done');
+			    });
+
+
 				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
 				showEventsList(event, downbox, slider, self);

@@ -2,13 +2,18 @@
 
 	"use strict";
 
+    var userType = $('#userType').val();
+    var userID = $('#userID').val();
+
 	var day1 = new Date('2016/02/17');
 	var day1_sec = day1.getTime();
 
 	var day2 = new Date('2016/02/20');
 	var day2_sec = day2.getTime();
+	var type = 'FB';
+	var id = 'xxx';
 	var options = {
-		events_source: '/availableDate',
+		events_source: '/availableDate/byCalendar?type='+userType+'&id='+userID,
 		// events_source: function () { return [
 		// 	{
 	 //            "id": 293,

@@ -15,10 +15,19 @@ AvailableDateModel.prototype.add = function(type, id, month, availableDate, call
   var db = new dbBase();
   db._query('select "spAddAvailableDate"($1, $2, $3, $4)', 
        [type ,id, month, availableDate]).then(function(result){
-    callback( true, result.rows );
+    callback( true, result );
   }).catch(function(err){
     callback( false, err );
   });
 };
 
+AvailableDateModel.prototype.update = function(type, id, month, day, callback) {
+  var db = new dbBase();
+  db._query('select "spUptAvailableDate"($1, $2, $3, $4)', 
+       [type ,id, month, day]).then(function(result){
+    callback( true, result );
+  }).catch(function(err){
+    callback( false, err );
+  });
+};
 module.exports = AvailableDateModel;
